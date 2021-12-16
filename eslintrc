@@ -1,0 +1,54 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "globals": {
+        "process": "readonly",
+        "require": "readonly",
+        "module": "readonly"
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "prettier"
+    ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "prettier"
+    ],
+    "rules": {
+        "prettier/prettier": [
+            "error",
+            {
+                "endOfLine": "auto",
+                "jsxSingleQuote": true,
+                "singleQuote": true,
+                "commaDangle": false,
+                "printWidth": 100
+            }
+        ],
+        "camelcase" : 0,
+        "quotes": ["error", "single", {
+            "avoidEscape": true
+        }],
+        "react/display-name": 0,
+        "react/prop-types": 0,
+        "jsx-a11y/anchor-has-content": "off",
+        "no-trailing-spaces": [
+            "error",
+            {
+                "skipBlankLines": false,
+                "ignoreComments": false
+            }
+        ],
+        "react/no-unescaped-entities": 0
+    }
+}

@@ -1,0 +1,63 @@
+.whipik-transition--loader {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100vh;
+  background: #ffffff;
+}
+
+.whipik-spinner {
+  font-size: 60px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: fadeIn 0.5s linear;
+  margin: 10px 0;
+}
+
+.whipik-spinner:before {
+  background-image: url("../../../assets/images/logo-alt.png");
+  content: "";
+  height: 160px;
+  width: 160px;
+  background-size: 70px;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: inline-block;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+}
+
+.whipik-spinner .circle {
+  position: relative;
+  text-indent: -9999em;
+  border-top: 2px solid rgba(40, 48, 78, 1);
+  border-right: 2px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+  border-left: 2px solid rgba(0, 0, 0, 0.1);
+  -webkit-animation: loaderAnim 0.8s infinite linear;
+  animation: loaderAnim 0.8s infinite linear;
+}
+
+.whipik-spinner .circle,
+.whipik-spinner .circle:after {
+  border-radius: 200px;
+  width: 100px;
+  height: 100px;
+}
+
+@keyframes loaderAnim {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(1turn);
+  }
+}

@@ -1,0 +1,32 @@
+.whipik-table {
+  @apply min-w-full;
+  @apply divide-y;
+  @apply divide-gray-200;
+  thead {
+    @apply bg-gray-50;
+    tr {
+      th {
+        @apply px-3;
+        @apply py-3;
+        @apply text-left;
+        @apply text-xs;
+        @apply font-medium;
+        @apply text-gray-500;
+        @apply uppercase;
+        @apply tracking-wider;
+      }
+    }
+  }
+  tbody{
+    @apply bg-white;
+    @apply divide-y;
+    @apply divide-gray-200;
+    tr {
+      td {
+        @apply px-3;
+        @apply py-4;
+        @apply whitespace-nowrap
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+[
+    {
+        "relation": [
+            "delegate_permission/Common.handle_all_urls"
+        ],
+        "target": {
+            "namespace": "android_app",
+            "package_name": "com.whipiktales.dev",
+            "sha256_cert_fingerprints": [
+                "2B:38:7A:BC:4D:52:8D:DA:FE:EB:77:7F:95:B8:2E:65:EC:85:FD:DE:60:A6:31:FF:F7:2D:9B:A5:A7:17:5F:FA",
+                "5B:73:31:D7:4A:8C:74:37:05:CA:5D:18:D8:66:04:15:E7:8B:95:2E:F7:0C:32:5A:E8:11:7C:D6:3C:01:54:F4"
+            ]
+        }
+    }
+]

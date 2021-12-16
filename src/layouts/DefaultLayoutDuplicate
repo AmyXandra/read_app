@@ -1,0 +1,228 @@
+import React, { Fragment, useContext } from 'react';
+// import React, { useContext } from 'react';
+import { Menu, Popover, Transition } from '@headlessui/react';
+// import { Popover } from '@headlessui/react';
+import AuthLogo from '../assets/images/whipik-logo.png';
+import MobileMenu from '../components/navigation/MobileMenu';
+import WebNavbar from '../webPages/components/navigation/WebNavbar';
+import {
+  BellIcon,
+  FireIcon,
+  MenuIcon,
+  TrendingUpIcon,
+  UserGroupIcon,
+  XIcon,
+  TagIcon,
+  BookmarkAltIcon,
+} from '@heroicons/react/outline';
+import DesktopSideBar from '../components/navigation/DesktopSidebar';
+import RemoteConfigContextProvider from '../context/RemoteConfigContext';
+import { AuthContext } from '../context/AuthContext';
+import { userRoleTypes } from '../libs/util';
+import { useHistory, Link } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
+import { removeUserFromCookies } from '../libs/util/Auth';
+
+export default function DefaultLayout({ children }) {
+  const history = useHistory();
+  const {
+    state: { user },
+  } = useContext(AuthContext);
+
+  const checkCurrentRoute = (routeName) => {
+    return window.location.pathname === routeName ? true : false;
+  };
+
+  const goToProfile = () => {
+    history.push(`/users/${user._id}`);
+  };
+
+  const logoutUserHandler = () => {
+    removeUserFromCookies();
+    history.push('/browse/1');
+  };
+
+  const navigation = [
+    // {
+    //   name: 'Dashboard',
+    //   href: '/dashboard',
+    //   icon: HomeIcon,
+    //   current: window.location.pathname === '/dashboard' ? true : false,
+    // },
+    {
+      name: 'All Stories',
+      href: '/stories',
+      icon: FireIcon,
+      current: checkCurrentRoute('/stories'),
+      access: [userRoleTypes.superAdmin, userRoleTypes.contentManager],
+    },
+    {
+      name: 'My Stories',
+      href: '/my-stories',
+      icon: FireIcon,
+      current: checkCurrentRoute('/my-stories'),
+      access: [userRoleTypes.all],
+    },
+    {
+      name: 'Roles',
+      href: '#',
+      icon: TrendingUpIcon,
+      current: false,
+      access: [userRoleTypes.superAdmin],
+    },
+    {
+      name: 'Tags',
+      href: '/tags',
+      icon: TagIcon,
+      current: checkCurrentRoute('/tags'),
+      access: [userRoleTypes.superAdmin, userRoleTypes.contentManager],
+    },
+    {
+      name: 'Users',
+      href: '/users',
+      icon: UserGroupIcon,
+      current: checkCurrentRoute('/users'),
+      access: [userRoleTypes.superAdmin],
+    },
+    {
+      name: 'Genres',
+      href: '/genres',
+      icon: BookmarkAltIcon,
+      current: checkCurrentRoute('/genres'),
+      access: [userRoleTypes.superAdmin, userRoleTypes.contentManager],
+    },
+  ];
+
+  const userNavigation = [
+    { name: 'Your Profile', action: goToProfile },
+    // { name: 'Settings', href: '#' },
+    { name: 'Sign out', action: logoutUserHandler },
+  ];
+
+  function classNames(...classes) {
+    return classes.filter(Boolean).join(' ');
+  }
+
+  return (
+    <div className='min-h-screen bg-gray-100'>
+      {/* When the mobile menu is open, add `overflow-hidden` to the `body` element to prevent double scrollbars */}
+      <Popover
+        as='header'
+        className={({ open }) =>
+          classNames(
+            open ? 'fixed inset-0 z-40 overflow-y-auto' : '',
+            'bg-white shadow-sm lg:static lg:overflow-y-visible'
+          )
+        }
+      >
+        {({ open }) => (
+          <>
+            <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+              <div className='relative flex justify-between xl:grid xl:grid-cols-12 lg:gap-8'>
+                <div className='flex md:absolute md:left-0 md:inset-y-0 lg:static xl:col-span-8 py-2'>
+                  <div className='flex-shrink-0 flex items-center'>
+                    <Link to='/my-stories'>
+                      <img className='block h-auto w-16' src={AuthLogo} alt='Workflow' />
+                    </Link>
+                  </div>
+                </div>
+
+                <div className='flex items-center md:absolute md:right-0 md:inset-y-0 lg:hidden'>
+                  {/* Mobile menu button */}
+                  <Popover.Button className='-mx-2 rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-rose-500'>
+                    <span className='sr-only'>Open menu</span>
+                    {open ? (
+                      <XIcon className='block h-6 w-6' aria-hidden='true' />
+                    ) : (
+                      <MenuIcon className='block h-6 w-6' aria-hidden='true' />
+                    )}
+                  </Popover.Button>
+                </div>
+
+                <div className='hidden lg:flex lg:items-center lg:justify-end xl:col-span-4'>
+                  <button className='ml-5 flex-shrink-0 bg-white rounded-full p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500'>
+                    <span className='sr-only'>Notification Icon</span>
+                    <BellIcon className='h-6 w-6' aria-hidden='true' />
+                  </button>
+
+                  {/* Profile dropdown */}
+                  <Menu as='div' className='flex-shrink-0 relative ml-5'>
+                    {({ open }) => (
+                      <>
+                        <div>
+                          <Menu.Button className='bg-white rounded-full flex focus:outline-none items-center'>
+                            <span className='mr-3 text-gray-400 '> {user?.name} </span>
+                            {user?.avatar ? (
+                              <img className='h-8 w-8 rounded-full' src={user?.avatar} alt='' />
+                            ) : (
+                              <span className='inline-flex items-center justify-center h-10 w-10 rounded-full'>
+                                <span className='text-base font-medium leading-none'>
+                                  {user?.name?.charAt(0)}
+                                </span>
+                              </span>
+                            )}
+                          </Menu.Button>
+                        </div>
+                        <Transition
+                          show={open}
+                          as={Fragment}
+                          enter='transition ease-out duration-100'
+                          enterFrom='transform opacity-0 scale-95'
+                          enterTo='transform opacity-100 scale-100'
+                          leave='transition ease-in duration-75'
+                          leaveFrom='transform opacity-100 scale-100'
+                          leaveTo='transform opacity-0 scale-95'
+                        >
+                          <Menu.Items
+                            static
+                            className='origin-top-right absolute z-10 right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 focus:outline-none'
+                          >
+                            {userNavigation.map((item) => (
+                              <Menu.Item key={item.name}>
+                                {({ active }) => (
+                                  <button
+                                    onClick={item.action}
+                                    className={classNames(
+                                      active ? 'bg-gray-100' : '',
+                                      'block py-2 px-4 text-sm text-gray-700 w-full text-left'
+                                    )}
+                                  >
+                                    {item.name}
+                                  </button>
+                                )}
+                              </Menu.Item>
+                            ))}
+                          </Menu.Items>
+                        </Transition>
+                      </>
+                    )}
+                  </Menu>
+                </div>
+              </div>
+            </div>
+
+            <MobileMenu
+              classNames={classNames}
+              navigation={navigation}
+              user={user}
+              userNavigation={userNavigation}
+            />
+            <WebNavbar />
+          </>
+        )}
+      </Popover>
+
+      <div className='py-8'>
+        <div className='max-w-3xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-12 lg:gap-8'>
+          <DesktopSideBar navigation={navigation} classNames={classNames} userRoles={user?.roles} />
+          {/* main content */}
+          <main className='lg:col-span-10'>
+            <div className='mt-0'>
+              <RemoteConfigContextProvider> {children} </RemoteConfigContextProvider>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+  );
+}

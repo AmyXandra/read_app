@@ -1,0 +1,15 @@
+.whipik-input {
+  @apply appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400;
+  &:focus{
+    @apply outline-none;
+    @apply ring-orange-500;
+    @apply border-orange-500;
+  }
+  &:disabled {
+    background: #f8f8f8;
+  }
+}
+
+.whipik-switch {
+  @apply relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500;
+}

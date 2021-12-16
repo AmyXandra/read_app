@@ -1,0 +1,71 @@
+.whipik-button {
+  @apply inline-flex items-center justify-center px-4 py-2 border text-sm font-medium rounded-md shadow-sm;
+
+  &:disabled {
+    @apply opacity-60 cursor-not-allowed;
+  }
+
+  &:focus {
+    @apply outline-none;
+  }
+
+  &__primary {
+    @apply text-white bg-orange-600 border-transparent;
+    &:hover {
+      @apply bg-orange-700;
+    }
+    &:focus {
+      @apply ring-orange-500;
+    }
+  }
+
+  &__secondary {
+    @apply text-white bg-blue-600 border-transparent;
+    &:hover {
+      @apply bg-blue-700;
+    }
+    &:focus {
+      @apply ring-blue-500;
+    }
+  }
+
+  &__success {
+    @apply text-white bg-green-600 border-transparent;
+    &:hover {
+      @apply bg-green-700;
+    }
+    &:focus {
+      @apply ring-green-500;
+    }
+  }
+
+  &__gray {
+    @apply text-white bg-gray-600 border-transparent;
+    &:hover {
+      @apply bg-gray-700;
+    }
+    &:focus {
+      @apply ring-gray-500;
+    }
+  }
+
+  &__white {
+    @apply border-gray-300 text-gray-700 bg-white;
+  }
+
+  &__danger {
+    @apply text-white;
+    @apply bg-red-600;
+    @apply border-transparent;
+    &:hover {
+      @apply bg-red-700;
+    }
+    &:focus {
+      @apply ring-red-500;
+    }
+  }
+}
+
+button:focus {
+  outline: none;
+}

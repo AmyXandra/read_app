@@ -1,0 +1,18 @@
+{
+  "workbench.colorCustomizations": {
+    "statusBar.background": "#e92cbc",
+    "statusBar.foreground": "#e7e7e7",
+    "statusBarItem.hoverBackground": "#ee5acb",
+    "titleBar.activeBackground": "#e92cbc",
+    "titleBar.activeForeground": "#e7e7e7",
+    "titleBar.inactiveBackground": "#e92cbc99",
+    "titleBar.inactiveForeground": "#e7e7e799"
+  },
+  "peacock.color": "#e92cbc",
+  "cSpell.words": [
+    "chatstory",
+    "chatstorydraft",
+    "unsubmit",
+    "whipik"
+  ]
+}
